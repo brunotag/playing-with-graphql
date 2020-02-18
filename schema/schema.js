@@ -6,7 +6,8 @@ const {
     GraphQLString, 
     GraphQLSchema,
     GraphQLID,
-    GraphQLInt
+    GraphQLInt,
+    GraphQLList
 } = graphql;
 
 const BookType = new GraphQLObjectType({
@@ -29,7 +30,13 @@ const AuthorType = new GraphQLObjectType({
     fields: () => ({
         id: { type: GraphQLID },
         name: { type: GraphQLString },
-        age: { type: GraphQLInt }
+        age: { type: GraphQLInt },
+        books: {
+            type: new GraphQLList(BookType),
+            resolve(parent, args){
+                return _.filter(dummyBooks, { authorId: parent.id});
+            }
+        }
     })
 });
 
@@ -39,6 +46,9 @@ var dummyBooks = [
     { name: 'Via col vento', genre: 'Pesanton', id: '1', authorId: '1'},
     { name: 'Il codice Da Vinci', genre: 'Trash', id: '2', authorId: '2'},
     { name: 'Pinocchio', genre: 'Scuola', id: '3', authorId: '3'},
+    { name: 'Petomania', genre: 'Comico', id: '4', authorId: '1'},
+    { name: 'Natale in Birmania del sud', genre: 'Trash', id: '5', authorId: '2'},
+    { name: 'Alluce valgo e altri malanni', genre: 'Medicina', id: '6', authorId: '3'},    
 ]
 
 var dummyAuthors = [
