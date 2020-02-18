@@ -14,7 +14,13 @@ const BookType = new GraphQLObjectType({
     fields: () => ({
         id: { type: GraphQLID },
         name: { type: GraphQLString },
-        genre: { type: GraphQLString }
+        genre: { type: GraphQLString },
+        author: {
+            type: AuthorType,
+            resolve(parent, args){
+                return _.find(dummyAuthors, { id: parent.authorId });
+            }
+        }
     })
 });
 
@@ -30,9 +36,9 @@ const AuthorType = new GraphQLObjectType({
 // ** DUMMY DATA - BEGIN **
 
 var dummyBooks = [
-    { name: 'Via col vento', genre: 'Pesanton', id: '1'},
-    { name: 'Il codice Da Vinci', genre: 'Trash', id: '2'},
-    { name: 'Pinocchio', genre: 'Scuola', id: '3'},
+    { name: 'Via col vento', genre: 'Pesanton', id: '1', authorId: '1'},
+    { name: 'Il codice Da Vinci', genre: 'Trash', id: '2', authorId: '2'},
+    { name: 'Pinocchio', genre: 'Scuola', id: '3', authorId: '3'},
 ]
 
 var dummyAuthors = [
