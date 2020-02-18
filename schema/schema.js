@@ -11,6 +11,12 @@ const BookType = new GraphQLObjectType({
     })
 });
 
+var dummyBooks = [
+    { name: 'Via col vento', genre: 'Pesanton', id: '1'},
+    { name: 'Il codice Da Vinci', genre: 'Trash', id: '2'},
+    { name: 'Pinocchio', genre: 'Scuola', id: '3'},
+]
+
 const RootQuery = new GraphQLObjectType({
     name: 'RootQueryType',
     fields: {
@@ -20,7 +26,10 @@ const RootQuery = new GraphQLObjectType({
                 id: { type: GraphQLString }
             },
             resolve(parent, args){
-                // code to get data from db / other source
+                for(var i=0;i<dummyBooks.length;i++){
+                    if (dummyBooks[i].id == args.id) 
+                        return dummyBooks[i];
+                }
             }
         }
     }
