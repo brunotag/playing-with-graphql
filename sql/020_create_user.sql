@@ -5,4 +5,8 @@ GO
 CREATE USER [GraphqlBookstoreUser] FOR LOGIN [GraphqlBookstoreUser] WITH DEFAULT_SCHEMA=[dbo]
 GO
 
+ALTER ROLE [db_datareader] ADD MEMBER [GraphqlBookstoreUser]
+GO
 
+ALTER ROLE [db_datawriter] ADD MEMBER [GraphqlBookstoreUser]
+GO
